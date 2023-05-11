@@ -14,8 +14,8 @@ import seaborn as sns
 from datetime import datetime
 
 # %%
-path_of_images = '/Users/hilmialperates/pytorch/artecs/train_yolo8/reguncelfotograflar_2/'
-path_of_tiles = '/Users/hilmialperates/pytorch/artecs/train_yolo8/tiled_images/'
+path_of_images = './train_yolo8/reguncelfotograflar_2/'
+path_of_tiles = './train_yolo8/tiled_images/'
 
 # %%
 list_of_images = os.listdir(path_of_images)
@@ -189,9 +189,9 @@ print(class_counts)
 
 # %%
 conn = psycopg2.connect(
-    dbname="artecs",
-    user="artecs",
-    password="deneme123",
+    dbname="dbname",
+    user="user",
+    password="password",
     host="localhost",
     port="5432"
 )
@@ -219,9 +219,9 @@ date_today = '2023-03-10'
 class update_database:
     def __init__(self, class_counts, sector, date_today):
         self.conn = psycopg2.connect(
-            dbname="artecs",
-            user="artecs",
-            password="deneme123",
+            dbname="dbname",
+            user="user",
+            password="password",
             host="localhost",
             port="5432"
         )
@@ -234,7 +234,7 @@ class update_database:
 
     def update(self):
         self.cur.execute(
-            "INSERT INTO artecs_hydro1.pests (galeri_sinegi, beyaz_sinek, tuta, thrips, total_pest_num, sector, date_1) VALUES (%s, %s, %s, %s, %s, %s, %s)",
+            "INSERT INTO a_hydro1.pests (galeri_sinegi, beyaz_sinek, tuta, thrips, total_pest_num, sector, date_1) VALUES (%s, %s, %s, %s, %s, %s, %s)",
             (self.class_counts['galeri_sinegi'], self.class_counts['beyaz_sinek'], self.class_counts['tuta'],
              self.class_counts['thrips'], self.total_pest_num, self.sec, self.date_today))
         self.conn.commit()
